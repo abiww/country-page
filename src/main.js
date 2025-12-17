@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+import './css/style.css';
+
 // PRIME VUE
 import PrimeVue from 'primevue/config';
 import 'primevue/resources/themes/aura-dark-blue/theme.css'
@@ -25,8 +27,8 @@ app.component('Checkbox', Checkbox);
 
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import ColumnGroup from 'primevue/columngroup';   // optional
-import Row from 'primevue/row';                   // optional
+import ColumnGroup from 'primevue/columngroup'; 
+import Row from 'primevue/row';                  
 app.component('DataTable', DataTable);
 app.component('Column', Column);
 app.component('ColumnGroup', ColumnGroup);
