@@ -1,6 +1,6 @@
 .country-ranks {
     background-color: #1B1D1F;
-    padding: 20px 50px;
+    padding: 20px 30px;
     border: 1px solid #282B30;
     box-shadow: 0px 0px 10px #4e81ee50;
 
@@ -34,7 +34,7 @@
     border: 1px solid #6C727F;
     padding: 10px 10px 10px 35px;
     border-radius: 5px;
-    width: 280px;
+    width: 230px;
 
     color: #D2D5DA;
     font-size: 14px;
@@ -77,17 +77,14 @@
 }
 
 /* SIDE BAR - SORT */
-.sort .drd-population {
+.sort .drd-sort {
     width: 100%;
     background-color: #282B30;
     border: 0.5px solid #6C727F;
-    
-    font-size: 14px;
-    font-weight: 500;
 }
 
-.sort .drd-population :deep(.p-dropdown-label) {
-    font-size: 14px;
+.sort .drd-sort :deep(.p-dropdown-label) {
+    font-size: 12px;
     color: #D2D5DA;
 }
 
@@ -97,25 +94,30 @@
     border: none;
     border-radius: 15px;
     padding: 5px 15px;
-    margin: 5px;
+    margin: 0 5px 5px 0;
 
     font-family: 'Be Vietnam Pro', sans-serif;
     font-weight: 500;
     color: #D2D5DA;
-    font-size: 14px;
+    font-size: 12px;
 
     cursor: pointer;
+}
+
+.region button.active {
+    background-color: #4E80EE;
+    color: #D2D5DA;
 }
 
 /* SIDE BAR - STATUS */
 .status .cb {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 
     font-weight: 500;
     color: #D2D5DA;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .status :deep(.check-box .p-checkbox-box) {
@@ -135,7 +137,6 @@
 
 /* TABLE */
 .table {
-    /* background-color: #48232c; */
     width: 75%;
     min-height: 400px;
 }
@@ -163,15 +164,6 @@
     font-size: 14px;
 }
 
-/* STRIPED ROWS */
-    .table :deep(.p-datatable-tbody > tr.p-datatable-row-even) {
-    background: rgba(255,255,255,0.02);
-}
-
-.table :deep(.p-datatable-tbody > tr.p-datatable-row-odd) {
-    background: transparent;
-}
-
 /* PAGINATOR */
 .table :deep(.p-paginator) {
     background: #1B1D1F;
@@ -180,7 +172,7 @@
 
 .table :deep(.p-paginator-page) {        
     color: #6C727F;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
 }
 

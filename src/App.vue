@@ -4,14 +4,17 @@
   </div>
 
   <country-ranks />
+
 </template>
 
 <script>
   import CountryRanks from './components/CountryRanks.vue';
+  import CountryInfo from './components/CountryInfo.vue';
   
   export default {
     components: {
         CountryRanks,
+        CountryInfo,
     },
   }
 </script>

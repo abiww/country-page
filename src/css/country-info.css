@@ -1,0 +1,138 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.country-info {
+    background-color: #1B1D1F;
+    border: 1px solid #282B30;
+    box-shadow: 0px 0px 10px #4e81ee50;
+
+    margin: 180px auto 50px auto;
+    width: 50%;
+    min-height: 600px;
+    border-radius: 10px;
+    z-index: 1;
+
+    color: #D2D5DA;
+}
+
+/* TITLE */
+.country-info .title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+    gap: 20px;
+
+    margin-top: -60px;
+    margin-bottom: 40px;
+}
+
+.country-info .title img {
+    width: 250px;    
+}
+
+.country-info .title h1 {
+    font-size: 32px;
+}
+
+.country-info .title p {
+    margin-top: -20px;
+    font-size: 16px;
+}
+
+/* LABEL */
+.country-info .label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    place-items: center;
+    gap: 20px;
+
+    margin-bottom: 40px;
+}
+
+.country-info .label .tag {
+    display: flex;
+    justify-content: center;
+    place-items: center;
+    gap: 20px;
+
+    background: #282B30;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #1B1D1F;
+    box-shadow: 2px 2px #282B30;
+}
+
+.country-info .label .tag .divider {
+    background: #1B1D1F;
+    width: 1.5px;
+    height: 25px;
+}
+
+.country-info .label .tag p {
+    color: #D2D5DA;
+    font-size: 14px;
+}
+
+/* INFO */
+.country-info .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.country-info .info .row {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #282B30;
+
+    padding: 20px 30px;
+}
+
+
+.country-info .info .row-last{
+    display: flex;
+    justify-content: space-between;
+    border-top: 0.5px solid #282B30;
+    border-bottom: 0.5px solid #282B30;
+
+    padding: 20px 30px;
+    margin-bottom: 40px;
+}
+
+/* OTHERS */
+.country-info .others {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 0 30px 30px;
+}
+
+.country-info .others .countries {
+    display: flex;
+    gap: 10px;
+}
+
+.country-info .others .countries button img {
+    width: 90px;
+    height: auto;
+
+    margin-bottom: 5px;
+}
+
+.country-info .others .countries button {
+    width: 100px;
+    height: auto;
+    background: none;
+    border: 0;
+
+    text-align: left;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 14px;
+    color: #D2D5DA;
+
+    cursor: pointer;
+}

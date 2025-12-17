@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+// CSS STYLES
 import './css/style.css';
 
 // PRIME VUE
