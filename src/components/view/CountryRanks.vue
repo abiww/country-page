@@ -4,8 +4,13 @@
         <!-- TOP BAR -->
         <div class="top-bar">
             <p>Found {{ sortedCountries.length }} countries</p>
-            <input v-model="searchQuery" type="text" placeholder="Search by Name" @input="selectedRegion = null"/>
-        </div>
+
+            <IconField style="position: relative; display: flex; align-items: center;">
+                <i class="pi pi-search" style="position: absolute; left: 12px; font-size: 14px; opacity: 0.5; pointer-events: none;"></i>
+                <input v-model="searchQuery" placeholder="Search by Name" @input="selectedRegion = null" class="p-inputtext w-full" style="padding-left: 35px; padding-right: 35px; width: 100%;" />
+                <i v-if="searchQuery" class="pi pi-times cursor-pointer thin-icon" style="position: absolute; right: 12px; font-size: 14px; opacity: 0.5;" @click="clearSearch"></i>
+            </IconField>
+                          </div>
 
         <!-- MAIN CONTENT -->
         <div class="main-content">
@@ -45,16 +50,28 @@
             <!-- TABLE -->
             <div class="table">
                 <DataTable :value="sortedCountries" paginator :rows="10" tableStyle="table-layout: auto; min-width: 100%" @row-click="onRowSelect">
+                    <!-- FLAG -->
                     <Column field="flag" header="Flag" style="width: 15%">
-                            <template #body="slotProps">
-                                <img :src="slotProps.data.flag" :alt="slotProps.data.name" style="width: 50px; height: 30px; object-fit: cover; border-radius: 2px;" />
-                            </template>
-                        </Column>
-                        
-                        <Column field="name" header="Name" style="width: 25%"></Column>
-                        <Column field="population" header="Population" style="width: 20%"></Column>
-                        <Column field="area" header="Area (km²)" style="width: 20%"></Column>
-                        <Column field="region" header="Region" style="width: 20%"></Column>
+                        <template #body="slotProps">
+                            <img :src="slotProps.data.flag" :alt="slotProps.data.name" style="width: 50px; height: 30px; object-fit: cover; border-radius: 2px; border-radius: 2.5px;" />
+                        </template>
+                    </Column>
+                    <!-- NAME -->
+                    <Column field="name" header="Name" style="width: 25%"></Column>
+                    <!-- POPULATION -->
+                    <Column field="population" header="Population" style="width: 20%">
+                        <template #body="slotProps">
+                            {{ formatNumber(slotProps.data.population) }}
+                        </template>
+                    </Column>
+                    <!-- AREA -->
+                    <Column field="area" header="Area (km²)" style="width: 20%">
+                        <template #body="slotProps">
+                            {{ formatNumber(slotProps.data.population) }}
+                        </template>
+                    </Column>
+                    <!-- REGION -->
+                    <Column field="region" header="Region" style="width: 20%"></Column>
                 </DataTable>
             </div>
         </div>
@@ -88,7 +105,20 @@ export default {
     },
     methods: {
         onRowSelect(event) {
-            this.$emit('country-selected', event.data);
+            const countryName = event.data.name; 
+
+            this.$router.push({ 
+                name: 'CountryInfo', 
+                params: { name: countryName } 
+            });
+        },
+        formatNumber(value) {
+            if (value === null || value === undefined) return '';
+            return value.toLocaleString();
+        },
+        clearSearch() {
+            this.searchQuery = '';
+            this.selectedRegion = null; 
         }
     },
     watch: {
@@ -153,11 +183,13 @@ export default {
     },
     mounted() {
         axios.get('https://gist.githubusercontent.com/abiww/1a53acf9955116b9e39f3e7e9f29caec/raw/11f9d87ea548270aa99f3489ee50bcec86b38eca/countries')
-        .then(response => this.countries = response.data)
+        .then(response => {this.countries = response.data;
+            localStorage.setItem('allCountries', JSON.stringify(response.data));
+        });
     },
 };
 </script>
 
 <style scoped>
-@import "../css/country-ranks.css";
+    @import "../../css/country-ranks.css";
 </style>

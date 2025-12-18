@@ -3,35 +3,32 @@
     <img src="./assets/Logo.svg" alt="Logo">
   </div>
 
-  <country-ranks 
-    v-if="!selectedCountry" 
-    @country-selected="handleSelection" 
-  />
-
-  <country-info 
-    v-else 
-    :country="selectedCountry" 
-    @close="selectedCountry = null" 
-  />
+  <router-view />
 </template>
 
 <script>
-import CountryRanks from './components/CountryRanks.vue';
-import CountryInfo from './components/CountryInfo.vue';
-
 export default {
-  components: {
-    CountryRanks,
-    CountryInfo,
-  },
+  props: ['name'], // Receives "India" from the URL /country/India
   data() {
     return {
-      selectedCountry: null // Controls which component is visible
+      country: null,
+      // This should be your JSON array containing the country objects
+      allCountries: [ /* your data here */ ] 
+    }
+  },
+  created() {
+    this.fetchCountryData();
+  },
+  watch: {
+    // This ensures the data updates if you click a "Neighbouring Country"
+    name() {
+      this.fetchCountryData();
     }
   },
   methods: {
-    handleSelection(country) {
-      this.selectedCountry = country;
+    fetchCountryData() {
+      // Find the country where the name matches the URL parameter
+      this.country = this.allCountries.find(c => c.name === this.name);
     }
   }
 }

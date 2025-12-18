@@ -27,9 +27,6 @@
 }
 
 .top-bar input {
-    background: url('/src/assets/search.svg') no-repeat 10px center;
-    background-size: 18px;
-
     background-color: #282B30;
     border: 0.5px solid #6C727F;
     padding: 10px 10px 10px 35px;
@@ -38,10 +35,13 @@
 
     color: #D2D5DA;
     font-size: 14px;
-    font-weight: 600;
 }
 
-.top-bar input::placeholder {
+.pi-times:hover {
+    color: #BC3B2F;
+}
+
+/* .top-bar input::placeholder {
     color: #6C727F;
 }
 
@@ -52,7 +52,7 @@
 .top-bar input:focus {
     outline: none; 
     border-color: #4E80EE;
-}
+} */
 
 /* MAIN CONTENT */
 .main-content {

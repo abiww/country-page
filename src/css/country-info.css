@@ -30,7 +30,9 @@
 }
 
 .country-info .title img {
-    width: 250px;    
+    width: 250px;
+    height: auto;
+    border-radius: 15px;    
 }
 
 .country-info .title h1 {
@@ -114,11 +116,14 @@
 .country-info .others .countries {
     display: flex;
     gap: 10px;
+
+    overflow: auto;
 }
 
 .country-info .others .countries button img {
     width: 90px;
     height: auto;
+    border-radius: 5px;
 
     margin-bottom: 5px;
 }
@@ -135,4 +140,9 @@
     color: #D2D5DA;
 
     cursor: pointer;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    background-color: transparent;
 }
