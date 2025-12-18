@@ -31,14 +31,14 @@
     background-size: 18px;
 
     background-color: #282B30;
-    border: 1px solid #6C727F;
+    border: 0.5px solid #6C727F;
     padding: 10px 10px 10px 35px;
     border-radius: 5px;
     width: 230px;
 
     color: #D2D5DA;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .top-bar input::placeholder {
@@ -84,8 +84,33 @@
 }
 
 .sort .drd-sort :deep(.p-dropdown-label) {
-    font-size: 12px;
+    font-size: 14px;
     color: #D2D5DA;
+}
+
+.sort :deep(.p-dropdown-panel) {
+    background-color: #1B1D1F;
+    border: 1px solid #6C727F;
+}
+.sort :deep(.p-dropdown-item) {
+    font-size: 14px;
+    color: #D2D5DA;
+    padding: 8px 12px;
+}
+
+.sort :deep(.p-dropdown-item:hover) {
+    background-color: #282B30;
+    color: #FFFFFF;
+}
+
+.sort :deep(.p-dropdown-item.p-highlight) {
+    background-color: #2e3238;
+    color: #FFFFFF;
+}
+
+.sort :deep(.p-dropdown-items-wrapper) {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 /* SIDE BAR - REGION */
@@ -99,7 +124,7 @@
     font-family: 'Be Vietnam Pro', sans-serif;
     font-weight: 500;
     color: #D2D5DA;
-    font-size: 12px;
+    font-size: 14px;
 
     cursor: pointer;
 }
@@ -117,7 +142,7 @@
 
     font-weight: 500;
     color: #D2D5DA;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .status :deep(.check-box .p-checkbox-box) {
@@ -144,6 +169,7 @@
 .table :deep(.p-datatable) {
     background: #1B1D1F;
     overflow: hidden;
+    table-layout: fixed;
 }
 
 /* HEADER */
@@ -162,6 +188,15 @@
     font-family: 'Be Vietnam Pro', sans-serif;
     color: #D2D5DA;
     font-size: 14px;
+}
+
+/* CLICKABLE ROWS */
+.table :deep(.p-datatable-tbody > tr) {
+    cursor: pointer;
+}
+
+.table :deep(.p-datatable-tbody > tr:hover > td) {
+    background: #282B30;
 }
 
 /* PAGINATOR */

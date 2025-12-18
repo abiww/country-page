@@ -4,7 +4,7 @@
         <!-- TOP BAR -->
         <div class="top-bar">
             <p>Found {{ sortedCountries.length }} countries</p>
-            <input type="text" placeholder="Search by Name" />
+            <input v-model="searchQuery" type="text" placeholder="Search by Name" @input="selectedRegion = null"/>
         </div>
 
         <!-- MAIN CONTENT -->
@@ -16,7 +16,7 @@
                 <!-- SORT -->
                 <div class="sort">
                     <p>Sort by</p>
-                    <Dropdown v-model="selectedSort" :options="sortOptions" optionLabel="name" placeholder='Sort by' class="drd-sort" />
+                    <Dropdown v-model="selectedSort" :options="sortOptions" optionLabel="name" placeholder='Sort by' class="drd-sort" appendTo="self" />
                 </div>
                 
                 <!-- REGION -->
@@ -31,12 +31,12 @@
                 <div class="status">
                     <p>Status</p>
                     <div class="cb">
-                        <Checkbox v-model="cb" inputId="member" value="Member" class="check-box"/>
-                        <label for="member">Member of the United Nations</label>
+                        <Checkbox v-model="isUNMember" :binary="true" inputId="isUNMember" class="check-box"/>
+                        <label for="isUNMember">Member of the United Nations</label>
                     </div>
                     <div class="cb">
-                        <Checkbox v-model="cb" inputId="independent" value="Independent" class="check-box"/>
-                        <label for="independent">Independent</label>
+                        <Checkbox v-model="isIndependent" :binary="true" inputId="isIndependent" class="check-box"/>
+                        <label for="isIndependent">Independent</label>
                     </div>
                 </div>
 
@@ -44,19 +44,19 @@
 
             <!-- TABLE -->
             <div class="table">
-                <DataTable :value="sortedCountries" paginator :rows="10" tableStyle="min-width: 50rem">
-                    <Column field="flag" header="Flag">
-                        <template #body="slotProps">
-                            <img :src="slotProps.data.flag" :alt="slotProps.data.name" style="width: 50px; height: 30px;" />
-                        </template>
-                    </Column>
-                    <Column field="name" header="Name"></Column>
-                    <Column field="population" header="Population"></Column>
-                    <Column field="area" header="Area (km²)"></Column>
-                    <Column field="region" header="Region"></Column>
+                <DataTable :value="sortedCountries" paginator :rows="10" tableStyle="table-layout: auto; min-width: 100%" @row-click="onRowSelect">
+                    <Column field="flag" header="Flag" style="width: 15%">
+                            <template #body="slotProps">
+                                <img :src="slotProps.data.flag" :alt="slotProps.data.name" style="width: 50px; height: 30px; object-fit: cover; border-radius: 2px;" />
+                            </template>
+                        </Column>
+                        
+                        <Column field="name" header="Name" style="width: 25%"></Column>
+                        <Column field="population" header="Population" style="width: 20%"></Column>
+                        <Column field="area" header="Area (km²)" style="width: 20%"></Column>
+                        <Column field="region" header="Region" style="width: 20%"></Column>
                 </DataTable>
             </div>
-
         </div>
 
     </div>    
@@ -69,6 +69,7 @@ export default {
     data() {
         return {
             countries: [],
+            searchQuery: null,
             selectedSort: { name: 'Population (High to Low)', code: 'pop-desc' },
             sortOptions: [
                 { name: 'Name (A-Z)', code: 'name-asc' },
@@ -81,8 +82,23 @@ export default {
                 { name: 'Region (Z-A)', code: 'region-desc' }
             ],
             selectedRegion: null,
-            cb: null,
+            isUNMember: false,
+            isIndependent: false
         };
+    },
+    methods: {
+        onRowSelect(event) {
+            this.$emit('country-selected', event.data);
+        }
+    },
+    watch: {
+        selectedRegion(newVal) {
+            if (newVal) {
+                this.searchQuery = '';
+                this.isUNMember = false;
+                this.isIndependent = false;
+            }
+        }
     },
     computed: {
         uniqueRegions() {
@@ -93,27 +109,46 @@ export default {
         sortedCountries() {
             let data = [...this.countries];
 
-        if (this.selectedRegion) {
-            const regionValue = typeof this.selectedRegion === 'object' ? this.selectedRegion.value : this.selectedRegion;
-            data = data.filter(country => country.region === regionValue);
-        }
-        if (!this.selectedSort) return data;
-
-        const sortCode = this.selectedSort.code;
-        
-        return data.sort((a, b) => {
-            switch (sortCode) {
-                case 'name-asc':   return a.name.localeCompare(b.name);
-                case 'name-desc':  return b.name.localeCompare(a.name);
-                case 'region-asc': return a.region.localeCompare(b.region);
-                case 'region-desc':return b.region.localeCompare(a.region);
-                case 'pop-asc':    return a.population - b.population;
-                case 'pop-desc':   return b.population - a.population;
-                case 'area-asc':   return a.area - b.area;
-                case 'area-desc':  return b.area - a.area;
-                default: return 0;
+            const query = this.searchQuery?.trim().toLowerCase();
+            if (query) {
+                data = data.filter(country => 
+                    country.name.toLowerCase().includes(query)
+                );
+            } else if (this.selectedRegion) {
+                const regionValue = typeof this.selectedRegion === 'object' 
+                    ? this.selectedRegion.value 
+                    : this.selectedRegion;
+                    
+                data = data.filter(country => country.region === regionValue);
             }
-        });
+
+            // STATUS
+            if (this.isUNMember || this.isIndependent) {
+                data = data.filter(country => {
+                    const matchesUN = this.isUNMember && country.status === "UN Member";
+                    const matchesIndep = this.isIndependent && country.status === "Independent";
+                    return matchesUN || matchesIndep;
+                });
+            }
+
+            // SORT
+            if (!this.selectedSort) return data;
+
+            const sortCode = this.selectedSort.code;
+            
+            return data.sort((a, b) => {
+                switch (sortCode) {
+                    case 'name-asc':   return a.name.localeCompare(b.name);
+                    case 'name-desc':  return b.name.localeCompare(a.name);
+                    case 'region-asc': return a.region.localeCompare(b.region);
+                    case 'region-desc':return b.region.localeCompare(a.region);
+                    case 'pop-asc':    return a.population - b.population;
+                    case 'pop-desc':   return b.population - a.population;
+                    case 'area-asc':   return a.area - b.area;
+                    case 'area-desc':  return b.area - a.area;
+                    default: return 0;
+                }
+            });
         }
     },
     mounted() {
