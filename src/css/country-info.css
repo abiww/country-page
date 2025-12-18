@@ -146,3 +146,39 @@
 ::-webkit-scrollbar {
     background-color: transparent;
 }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .country-info {
+        width: 70%;
+    }
+} 
+
+@media (max-width: 640px) {
+    .country-info {
+        width: 80%;
+    }
+    .country-info .label {
+        flex-direction: column;
+    }
+    .country-info .label .tag {
+        width: 60%;
+    }
+}
+
+@media (max-width: 480px) {
+    .country-info {
+        width: 90%;
+    }
+    .country-info .label {
+        flex-direction: column;
+    }
+    .country-info .label .tag {
+        width: 70%;
+    }
+    .country-info .title img {
+        width: 200px;
+        height: auto;
+        border-radius: 10px;    
+    }
+} 

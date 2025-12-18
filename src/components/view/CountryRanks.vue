@@ -5,12 +5,12 @@
         <div class="top-bar">
             <p>Found {{ sortedCountries.length }} countries</p>
 
-            <IconField style="position: relative; display: flex; align-items: center;">
+            <IconField style="position: relative; display: flex; align-items: center;" class="input">
                 <i class="pi pi-search" style="position: absolute; left: 12px; font-size: 14px; opacity: 0.5; pointer-events: none;"></i>
                 <input v-model="searchQuery" placeholder="Search by Name" @input="selectedRegion = null" class="p-inputtext w-full" style="padding-left: 35px; padding-right: 35px; width: 100%;" />
                 <i v-if="searchQuery" class="pi pi-times cursor-pointer thin-icon" style="position: absolute; right: 12px; font-size: 14px; opacity: 0.5;" @click="clearSearch"></i>
             </IconField>
-                          </div>
+        </div>
 
         <!-- MAIN CONTENT -->
         <div class="main-content">

@@ -41,19 +41,6 @@
     color: #BC3B2F;
 }
 
-/* .top-bar input::placeholder {
-    color: #6C727F;
-}
-
-.top-bar input:hover {
-    border-color: #4E80EE;
-}
-
-.top-bar input:focus {
-    outline: none; 
-    border-color: #4E80EE;
-} */
-
 /* MAIN CONTENT */
 .main-content {
     display: flex;
@@ -216,3 +203,38 @@
     background:#4E80EE;
     color: #D2D5DA;
 }
+
+/* RESPONSIVE */
+
+@media (max-width: 640px) {
+    .country-ranks { 
+        padding: 10px 30px;
+    }
+
+    .top-bar { 
+        flex-direction: column; 
+        align-items: baseline;
+    }
+
+    .top-bar .input {
+        width: 100%;
+    }
+
+    .main-content {
+        flex-direction: column;
+    }
+
+    .side-bar {
+        max-width: 100%;
+    }
+
+    .table {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .country-ranks { 
+        padding: 0px 20px;
+    }
+} 
